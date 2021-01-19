@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Mazyl\Inpost\Api\PackagesRepositoryInterface" type="Mazyl\Inpost\Model\PackagesRepository"/>
+	<preference for="Mazyl\Inpost\Api\Data\PackagesInterface" type="Mazyl\Inpost\Model\Data\Packages"/>
+	<preference for="Mazyl\Inpost\Api\Data\PackagesSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Mazyl\Inpost\Model\ResourceModel\Packages\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">mazyl_inpost_packages</argument>
+			<argument name="resourceModel" xsi:type="string">Mazyl\Inpost\Model\ResourceModel\Packages\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="mazyl_inpost_packages_listing_data_source" xsi:type="string">Mazyl\Inpost\Model\ResourceModel\Packages\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+    <type name="Magento\Checkout\Block\Checkout\LayoutProcessor">
+        <plugin disabled="false" name="Mazyl_Inpost_Plugin_Magento_Checkout_Block_Checkout_LayoutProcessor" sortOrder="100" type="Mazyl\Inpost\Plugin\Magento\Checkout\Block\Checkout\LayoutProcessor"/>
+    </type>
+</config>

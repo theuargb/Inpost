@@ -1,0 +1,157 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+        <section id="shipping" showInDefault="1" showInStore="1" showInWebsite="1" translate="label">
+            <group id="inpost" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="100" translate="label">
+                <label>InpostPaczkomaty</label>
+                <field id="access_token" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="20" translate="label" type="text">
+                    <label>Access Token</label>
+                </field>
+                <field id="organization_id" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label" type="text">
+                    <label>ID organizacji</label>
+                </field>
+                <field id="google_apikey" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="40" translate="label" type="text">
+                    <label>GoogleMap Api key</label>
+                </field>
+                <field id="sandbox" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+                    <label>Sandobox</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="default_package" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+                    <label>Domyślny gabaryt paczki</label>
+                    <source_model>Mazyl\Inpost\Model\Config\Source\PackageList</source_model>
+                </field>
+                <field id="sending_method" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="49" translate="label" type="select">
+                    <label>Metoda nadania</label>
+                    <source_model>Mazyl\Inpost\Model\Config\Source\SendingMethods</source_model>
+                </field>
+                <field showInStore="1" showInWebsite="1" showInDefault="1" sortOrder="50" type="text" translate="label" id="dropoff_point">
+                    <label>Paczkomat nadania</label>
+                </field>
+                    <field showInStore="1" showInWebsite="1" showInDefault="1" sortOrder="60" type="select" translate="label" id="auto_buy">
+                    <label>Opłacaj przesyłkę przy jej nadawaniu</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="label_format" translate="label" type="select"
+                       sortOrder="90" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Format etykiety</label>
+                    <source_model>Mazyl\Inpost\Model\Config\Source\LabelFormat</source_model>
+                </field>
+            </group>
+        </section>
+
+		<section id="carriers" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="1000" translate="label">
+			<group id="inpostpaczkomaty" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+				<label>InpostPaczkomaty</label>
+				<field id="active" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+					<label>Enabled</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="name" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="20" translate="label" type="text">
+					<label>Method Name</label>
+				</field>
+				<field id="price" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label" type="text">
+					<label>Price</label>
+					<validate>validate-number validate-zero-or-greater</validate>
+				</field>
+				<field id="sort_order" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="40" translate="label" type="text">
+					<label>Sort Order</label>
+				</field>
+				<field id="title" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="50" translate="label" type="text">
+					<label>Title</label>
+				</field>
+                <field id="free_shipping" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="50" translate="label" type="text">
+                    <label>Darmowa Dostawa od</label>
+                </field>
+
+				<field id="sallowspecific" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="60" translate="label" type="select">
+					<label>Ship to Applicable Countries</label>
+					<frontend_class>shipping-applicable-country</frontend_class>
+					<source_model>Magento\Shipping\Model\Config\Source\Allspecificcountries</source_model>
+				</field>
+				<field id="specificcountry" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="70" translate="label" type="multiselect">
+					<label>Ship to Specific Countries</label>
+					<can_be_empty>1</can_be_empty>
+					<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+				</field>
+				<field id="specificerrmsg" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="80" translate="label" type="textarea">
+					<label>Displayed Error Message</label>
+				</field>
+			</group>
+			<group id="inpostpaczkomatypobranie" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+				<label>InpostPaczkomatyPobranie</label>
+				<field id="active" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+					<label>Enabled</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="name" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="20" translate="label" type="text">
+					<label>Method Name</label>
+				</field>
+				<field id="price" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label" type="text">
+					<label>Price</label>
+					<validate>validate-number validate-zero-or-greater</validate>
+				</field>
+				<field id="sort_order" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="40" translate="label" type="text">
+					<label>Sort Order</label>
+				</field>
+				<field id="title" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="50" translate="label" type="text">
+					<label>Title</label>
+				</field>
+                <field id="free_shipping" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="50" translate="label" type="text">
+                    <label>Darmowa Dostawa od</label>
+                </field>
+				<field id="sallowspecific" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="60" translate="label" type="select">
+					<label>Ship to Applicable Countries</label>
+					<frontend_class>shipping-applicable-country</frontend_class>
+					<source_model>Magento\Shipping\Model\Config\Source\Allspecificcountries</source_model>
+				</field>
+				<field id="specificcountry" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="70" translate="label" type="multiselect">
+					<label>Ship to Specific Countries</label>
+					<can_be_empty>1</can_be_empty>
+					<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+				</field>
+				<field id="specificerrmsg" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="80" translate="label" type="textarea">
+					<label>Displayed Error Message</label>
+				</field>
+			</group>
+			<group id="inpostpaczkomatykurier" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+				<label>InpostPaczkomatyKurier</label>
+				<field id="active" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+					<label>Enabled</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="name" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="20" translate="label" type="text">
+					<label>Method Name</label>
+				</field>
+				<field id="price" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label" type="text">
+					<label>Price</label>
+					<validate>validate-number validate-zero-or-greater</validate>
+				</field>
+				<field id="sort_order" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="40" translate="label" type="text">
+					<label>Sort Order</label>
+				</field>
+				<field id="title" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="50" translate="label" type="text">
+					<label>Title</label>
+				</field>
+                <field id="free_shipping" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="50" translate="label" type="text">
+                    <label>Darmowa Dostawa od</label>
+                </field>
+				<field id="sallowspecific" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="60" translate="label" type="select">
+					<label>Ship to Applicable Countries</label>
+					<frontend_class>shipping-applicable-country</frontend_class>
+					<source_model>Magento\Shipping\Model\Config\Source\Allspecificcountries</source_model>
+				</field>
+				<field id="specificcountry" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="70" translate="label" type="multiselect">
+					<label>Ship to Specific Countries</label>
+					<can_be_empty>1</can_be_empty>
+					<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+				</field>
+				<field id="specificerrmsg" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="80" translate="label" type="textarea">
+					<label>Displayed Error Message</label>
+				</field>
+			</group>
+		</section>
+	</system>
+</config>

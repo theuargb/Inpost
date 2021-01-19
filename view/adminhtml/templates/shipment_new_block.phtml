@@ -1,0 +1,69 @@
+<?php if($block->isInpostShippingMethod()) {
+
+
+
+    $currentPackage = $block->getOrder()->getShippingAddress()->getData("inpost_package");
+    $currentPackage = json_decode($currentPackage, true);
+
+
+    ?>
+    <style>
+        .inpost_package_select, .inpost-point {
+            padding: 7px 15px;
+        }
+        .set-inpost-package {
+            padding: 7px 15px;
+            background: #000;
+            color: #fff;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+    </style>
+    <div class="admin__page-section inpost-settings" style="margin-left: 52%;">
+        <div class="admin__page-section-item-title">
+            <span class="title"><?= $block->escapeHtml(__('Ustawienia Paczkomatów')) ?></span>
+        </div>
+
+        <div class="package-content">
+            <div style="font-weight: 700; font-size: 16px;"><?= $block->escapeHtml(__('Paczkomat')) ?></div>
+            <input type="inpost_point" class="inpost-point" value="<?= $block->getOrder()->getShippingAddress()->getData("inpost_point"); ?>" />
+            <div style="font-weight: 700; font-size: 16px; margin-top: 30px;"><?= $block->escapeHtml(__('Gabaryt Paczki')) ?></div>
+            <select name="inpost_package" class="inpost_package_select">
+                 <?php foreach($block->getPackages() as $package) { ?>
+                     <option value="<?=$package->getId(); ?>"  <?php if( $currentPackage['id'] == $package->getId()) { ?> selected="selected" <?php } ?>><?=$package->getName(); ?></option>
+                <?php } ?>
+            </select>
+            <p style="margin-top: 30px;"><div class="action primary set-inpost-package"><?= $block->escapeHtml(__('Zapisz ustawienia dostawy')) ?></div></p>
+        </div>
+    </div>
+<script>
+    require(
+        [
+            'jquery',
+            'mage/translate'
+
+        ], function ($, $t) {
+
+            $(".set-inpost-package").click( function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: '<?= $block->packagesUrl(); ?>',
+                    data: {
+                        'order_id': <?=$block->getOrder()->getId(); ?>,
+                        'package': $( ".inpost_package_select" ).val(),
+                        'inpost_point': $( ".inpost-point" ).val()
+                    },
+                    dataType: 'json',
+                    showLoader: true
+                }).done(function(data) {
+                    alert(data.message);
+
+                });
+            })
+
+
+        });
+</script>
+<?php } ?>

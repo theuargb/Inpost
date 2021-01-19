@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<carriers>
+			<inpostpaczkomaty>
+				<model>Mazyl\Inpost\Model\Carrier\InpostPaczkomaty</model>
+				<active>0</active>
+				<title>InpostPaczkomaty</title>
+				<name>InpostPaczkomaty</name>
+				<price>0.00</price>
+				<specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.</specificerrmsg>
+				<sallowspecific>0</sallowspecific>
+			</inpostpaczkomaty>
+			<inpostpaczkomatypobranie>
+				<model>Mazyl\Inpost\Model\Carrier\InpostPaczkomatyPobranie</model>
+				<active>0</active>
+				<title>InpostPaczkomatyPobranie</title>
+				<name>InpostPaczkomatyPobranie</name>
+				<price>0.00</price>
+				<specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.</specificerrmsg>
+				<sallowspecific>0</sallowspecific>
+			</inpostpaczkomatypobranie>
+			<inpostpaczkomatykurier>
+				<model>Mazyl\Inpost\Model\Carrier\InpostPaczkomatyKurier</model>
+				<active>0</active>
+				<title>InpostPaczkomatyKurier</title>
+				<name>InpostPaczkomatyKurier</name>
+				<price>0.00</price>
+				<specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.</specificerrmsg>
+				<sallowspecific>0</sallowspecific>
+			</inpostpaczkomatykurier>
+		</carriers>
+	</default>
+</config>

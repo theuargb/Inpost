@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp:etc/csp_whitelist.xsd">
+    <policies>
+        <policy id="style-src">
+            <values>
+                <value id="easypack24Style" type="host">*.easypack24.net</value>
+                <value id="unpkgStyle" type="host">unpkg.com</value>
+                <value id="mapboxStyle" type="host">*.mapbox.com</value>
+                <value id="jsdelivrStyle" type="host">*.jsdelivr.net</value>
+                <value id="googleapisStyle" type="host">*.googleapis.com</value>
+                <value id="bootstrapcdnStyle" type="host">*.bootstrapcdn.com</value>
+            </values>
+        </policy>
+        <policy id="font-src">
+            <values>
+                <value id="gstaticFont" type="host">*.gstatic.com</value>
+                <value id="easypack24Font" type="host">*.easypack24.net</value>
+                <value id="bootstrapcdnFont" type="host">*.bootstrapcdn.com</value>
+                <value id="googleapisFont" type="host">*.googleapis.com</value>
+            </values>
+        </policy>
+        <policy id="script-src">
+            <values>
+                <value id="easypack24Script" type="host">*.easypack24.net</value>
+                <value id="unpkg" type="host">unpkg.com</value>
+                <value id="mapbox" type="host">*.mapbox.com</value>
+                <value id="jsdelivr" type="host">*.jsdelivr.net</value>
+                <value id="googleapis" type="host">*.googleapis.com</value>
+            </values>
+        </policy>
+        <policy id="connect-src">
+            <values>
+                <value id="easypack24api" type="host">*.easypack24.net</value>
+            </values>
+        </policy>
+        <policy id="img-src">
+            <values>
+                <value id="easypack24img" type="host">*.easypack24.net</value>
+                <value id="googleapisimg" type="host">*.googleapis.com</value>
+                <value id="gstaticimg" type="host">*.gstatic.com</value>
+                <value id="w3" type="host">data:</value>
+            </values>
+        </policy>
+
+    </policies>
+</csp_whitelist>

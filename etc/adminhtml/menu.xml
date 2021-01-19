@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="MazylInpost::top_level" module="Mazyl_Inpost" resource="Magento_Backend::content" sortOrder="9999" title="Inpost"/>
+		<add action="mazyl_inpost/packages/index" id="Mazyl_Inpost::mazyl_inpost_packages" module="Mazyl_Inpost" parent="MazylInpost::top_level" resource="Magento_Backend::content" sortOrder="9999" title="Packages"/>
+	</menu>
+</config>

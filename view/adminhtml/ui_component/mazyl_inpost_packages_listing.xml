@@ -1,0 +1,132 @@
+<?xml version="1.0" ?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">mazyl_inpost_packages_listing.mazyl_inpost_packages_listing_data_source</item>
+		</item>
+	</argument>
+	<settings>
+		<spinner>mazyl_inpost_packages_columns</spinner>
+		<deps>
+			<dep>mazyl_inpost_packages_listing.mazyl_inpost_packages_listing_data_source</dep>
+		</deps>
+		<buttons>
+			<button name="add">
+				<url path="*/*/new"/>
+				<class>primary</class>
+				<label translate="true">Add new Packages</label>
+			</button>
+		</buttons>
+	</settings>
+	<dataSource component="Magento_Ui/js/grid/provider" name="mazyl_inpost_packages_listing_data_source">
+		<settings>
+			<updateUrl path="mui/index/render"/>
+		</settings>
+		<aclResource>Mazyl_Inpost::Packages</aclResource>
+		<dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="mazyl_inpost_packages_listing_data_source">
+			<settings>
+				<requestFieldName>id</requestFieldName>
+				<primaryFieldName>packages_id</primaryFieldName>
+			</settings>
+		</dataProvider>
+	</dataSource>
+	<listingToolbar name="listing_top">
+		<settings>
+			<sticky>true</sticky>
+		</settings>
+		<bookmark name="bookmarks"/>
+		<columnsControls name="columns_controls"/>
+		<filters name="listing_filters"/>
+		<paging name="listing_paging"/>
+	</listingToolbar>
+	<columns name="mazyl_inpost_packages_columns">
+		<settings>
+			<editorConfig>
+				<param name="selectProvider" xsi:type="string">mazyl_inpost_packages_listing.mazyl_inpost_packages_listing.mazyl_inpost_packages_columns.ids</param>
+				<param name="enabled" xsi:type="boolean">true</param>
+				<param name="indexField" xsi:type="string">packages_id</param>
+				<param name="clientConfig" xsi:type="array">
+					<item name="saveUrl" path="mazyl_inpost/Packages/inlineEdit" xsi:type="url"/>
+					<item name="validateBeforeSave" xsi:type="boolean">false</item>
+				</param>
+			</editorConfig>
+			<childDefaults>
+				<param name="fieldAction" xsi:type="array">
+					<item name="provider" xsi:type="string">mazyl_inpost_packages_listing.mazyl_inpost_packages_listing.mazyl_inpost_packages_columns_editor</item>
+					<item name="target" xsi:type="string">startEdit</item>
+					<item name="params" xsi:type="array">
+						<item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+						<item name="1" xsi:type="boolean">true</item>
+					</item>
+				</param>
+			</childDefaults>
+		</settings>
+		<selectionsColumn name="ids">
+			<settings>
+				<indexField>packages_id</indexField>
+			</settings>
+		</selectionsColumn>
+		<column name="packages_id" sortOrder="1">
+			<settings>
+				<filter>text</filter>
+				<sorting>asc</sorting>
+				<label translate="true">ID</label>
+			</settings>
+		</column>
+		<column name="name" sortOrder="10">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Nazwa</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">true</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+        <column name="width" sortOrder="20">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Szerokość (w mm)</label>
+                <editor>
+                    <editorType>text</editorType>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                </editor>
+            </settings>
+        </column>
+        <column name="height" sortOrder="30">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Wysokość (w mm)</label>
+                <editor>
+                    <editorType>text</editorType>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                </editor>
+            </settings>
+        </column>
+        <column name="depth" sortOrder="40">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Głębokość (w mm)</label>
+                <editor>
+                    <editorType>text</editorType>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                </editor>
+            </settings>
+        </column>
+		<actionsColumn class="Mazyl\Inpost\Ui\Component\Listing\Column\PackagesActions" name="actions" sortOrder="50">
+			<settings>
+				<indexField>packages_id</indexField>
+				<resizeEnabled>false</resizeEnabled>
+				<resizeDefaultWidth>107</resizeDefaultWidth>
+			</settings>
+		</actionsColumn>
+	</columns>
+</listing>

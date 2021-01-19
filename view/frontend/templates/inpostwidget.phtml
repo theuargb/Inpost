@@ -1,0 +1,156 @@
+<?php
+/**
+ * @var $block \Mazyl\Inpost\Block\InpostWidget
+ */
+    $googleApiKey = $block->getConfig("google_apikey");
+    $url = "https://api-shipx-pl.easypack24.net/v1/";
+
+    if($block->isSandbox()) {
+        $url = "https://sandobx-api-shipx-pl.easypack24.net/v1/";
+    }
+
+    $inpost_name = $block->getInpostPointName();
+    $carrier_name = $block->getCarrierName();
+
+
+?>
+<input name="point_id" class="inpost_point_name" value="<?=$inpost_name; ?>" type="hidden"/>
+<div id="inpost-modal"></div>
+
+<script type="text/javascript">
+    require(
+        [
+            'jquery',
+            'mage/translate',
+            'Magento_Ui/js/modal/modal',
+            'Magento_Ui/js/model/messageList',
+            'paczkomatyJs',
+            'jquery/ui'
+
+        ], function ($, $t, modal, messageList, paczkomatyJs) {
+
+
+            function openModal(type) {
+                easyPack.modalMap(function(point, modal) {
+                    modal.closeModal();
+
+                    var $selectedMethod = $(".table-checkout-shipping-method input[type=radio]:checked").val();
+                    type = 0;
+                    if($selectedMethod == "inpostpaczkomaty_inpostpaczkomaty") type = 1;
+
+                    $.ajax({
+                        type: "POST",
+                        url: '/inpost/select/index',
+                        data: {
+                            'point_name': point.name,
+                            'type': type
+                        },
+                        dataType: 'json',
+                        showLoader: true
+                    }).done(function(data) {
+
+                        if(data.status == 1) {
+                            $('.inpost_point_name').val(point.name);
+                            if(data.type === 1) {
+                                $("#select_point").html($t('Paczkomat') + " " + point.name + " - "+ $t('Zmień') );
+                            } else {
+                                $("#select_point_cod").html($t('Paczkomat') + " " + point.name + " - "+ $t('Zmień') );
+                            }
+
+                        } else {
+                            messageList.addErrorMessage({ message: data.message });
+                            $('html,body').animate({scrollTop: $('#checkoutSteps').offset().top - 250 }, 400);
+                        }
+                    });
+
+                }, { width: 700, height: 800 });
+            }
+
+
+            function addInpostPointSelectButton()
+            {
+                var $label = $('#label_carrier_inpostpaczkomaty_inpostpaczkomaty');
+                if ($label.length && $('#select_point').length === 0) {
+
+
+                    if($(".table-checkout-shipping-method input[type=radio]:checked").val() == "inpostpaczkomaty_inpostpaczkomaty" && $(".inpost_point_name").val()) {
+                        $label.html($label.text() + '<br/><a href="#" id="select_point" class="select_point action">' + $t('Paczkomat') + " " + $(".inpost_point_name").val() + " - "+ $t('Zmień') + '</a>');
+                    } else {
+                        $label.html($label.text() + '<br/><a href="#" id="select_point" class="select_point action">' + $t('Wybierz Paczkomat') + '</a>');
+                    }
+
+                    $(document).on("click", ".select_point", function(e){
+                        e.preventDefault();
+                        openModal(1);
+                    });
+
+                } else {
+                    setTimeout(function () {
+                        addInpostPointSelectButton();
+                    }, 2000);
+                }
+            }
+
+            function addInpostPointSelectButtonCod()
+            {
+                var $label = $('#label_carrier_inpostpaczkomatypobranie_inpostpaczkomatypobranie');
+                if ($label.length && $('#select_point_cod').length === 0) {
+
+                    if($(".table-checkout-shipping-method input[type=radio]:checked").val() == "inpostpaczkomatypobranie_inpostpaczkomatypobranie" && $(".inpost_point_name").val()) {
+                        $label.html($label.text() + '<br/><a href="#" id="select_point_cod" class="select_point_cod action">' + $t('Paczkomat') + " " + $(".inpost_point_name").val() + " - "+ $t('Zmień') + '</a>');
+                    } else {
+                        $label.html($label.text() + '<br/><a href="#" id="select_point_cod" class="select_point_cod action">' + $t('Wybierz Paczkomat') + '</a>');
+                    }
+
+                    $(document).on("click", ".select_point_cod", function(e){
+                        e.preventDefault();
+                        openModal(0);
+                    });
+
+                } else {
+                    setTimeout(function () {
+                        addInpostPointSelectButtonCod();
+                    }, 2000);
+                }
+            }
+
+
+            $(document).ready(function () {
+
+
+                var mapConfig = {
+                    apiEndpoint: '<?=$url;?>',
+                    points: {
+                        types: ['pop','parcel_locker']
+                    },
+                    map: {
+                        initialTypes: ['parcel_locker'],
+                        googleKey: '<?=$googleApiKey;?>'
+                    },
+                    mapType: 'google',
+                    searchType: 'google',
+                };
+
+                window.easyPackAsyncInit = function () {
+                    easyPack.init(mapConfig);
+                };
+
+                addInpostPointSelectButton();
+                addInpostPointSelectButtonCod();
+
+                $('#maincontent').on('click', ' #shipping-method-buttons-container .continue', function (e) {
+                    console.log($('.methods-shipping .radio:checked').val());
+
+                    if ($('.methods-shipping .radio:checked').val() === "inpostpaczkomatypobranie_inpostpaczkomatypobranie" || $('.methods-shipping .radio:checked').val() === "inpostpaczkomaty_inpostpaczkomaty") {
+
+                        if (!$('.inpost_point_name').val()) {
+                            e.preventDefault();
+                            messageList.addErrorMessage({ message: $t('Proszę wybrać punkt odbioru') });
+                            $('html,body').animate({scrollTop: $('#checkoutSteps').offset().top - 250 }, 400);
+                            return false;
+                        }
+                    }
+                });
+            });
+        });
+</script>
