@@ -1,4 +1,4 @@
-# Magento 2 Module Mazyl Inpost
+# Magento 2 Inpost Paczkomaty. Magento Ver. 2.3-2.4
 
 Moduł paczkomatów inpost 
 Posiada podstawowe ustawienia, wykorzystuje widget mapy inpostu. Wymagane klucz google Maps.
